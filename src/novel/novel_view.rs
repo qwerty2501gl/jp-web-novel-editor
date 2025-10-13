@@ -6,19 +6,33 @@ use jp_web_novel_text::{
 
 #[derive(PartialEq, Clone, Props)]
 pub struct NovelInputProps {
-    novel_text_set: Signal<String>,
+    novel_text: Signal<String>,
+    input_count: Signal<usize>,
 }
 
 #[component]
-pub fn NovelView(novel_text: Signal<String>) -> Element {
+pub fn NovelView(props: NovelInputProps) -> Element {
     let parser = Parser::default();
-    rsx! {
+    let novel_element = rsx! {
         div{
             class:"novel-view",
             div{
                 class:"text-view-area",
-                {render_phrases(&parser,&novel_text.read())},
+                {render_phrases(&parser,&props.novel_text.read())},
             }
+        }
+    };
+    rsx! {
+        if *props.input_count.read() > 1 && !props.novel_text.read().is_empty(){
+            div{
+                visibility: *props.input_count.read() > 1 && !props.novel_text.read().is_empty(),
+                class:"loading-view flex items-center justify-center",
+                div{
+                    class:"animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent",
+                },
+            },
+        } else{
+            {novel_element}
         }
     }
 }
