@@ -23,17 +23,7 @@ pub fn NovelView(props: NovelInputProps) -> Element {
         }
     };
     rsx! {
-        if *props.input_count.read() > 1 && !props.novel_text.read().is_empty(){
-            div{
-                visibility: *props.input_count.read() > 1 && !props.novel_text.read().is_empty(),
-                class:"loading-view flex items-center justify-center",
-                div{
-                    class:"animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent",
-                },
-            },
-        } else{
             {novel_element}
-        }
     }
 }
 
