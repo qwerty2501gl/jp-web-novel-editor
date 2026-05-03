@@ -46,7 +46,7 @@ pub fn render_phrases(parser: &Parser, input: &str) -> Element {
 fn render_plain(phrase: &PlainPhrase<&str>) -> Element {
     rsx! {
         span{
-            {phrase.target()}
+            {*phrase.target()}
         }
     }
 }
@@ -54,10 +54,10 @@ fn render_plain(phrase: &PlainPhrase<&str>) -> Element {
 fn render_ruby(phrase: &RubyPhrase<&str>) -> Element {
     rsx! {
         ruby{
-            {phrase.target()},
+            {*phrase.target()},
             rp{"("},
             rt{
-                {phrase.ruby()}
+                {*phrase.ruby()}
             },
             rp{")"},
         }
