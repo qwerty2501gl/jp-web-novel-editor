@@ -25,7 +25,7 @@ pub fn NovelInput(mut props: NovelInputProps) -> Element {
                 },
                 oninput: move |_| {
                     *props.input_count.write()+=1;
-                    let timeout = Timeout::new(min(props.novel_text.read().len() / 5,3_000) as u32,move ||{
+                    let timeout = Timeout::new(min(props.novel_text.read().len() / 5,300) as u32,move ||{
                         if *props.input_count.read() > 0{
                             *props.input_count.write() -=1;
                         }
